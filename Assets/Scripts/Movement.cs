@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    AudioSource audio;
     Rigidbody rb;
     [SerializeField] float mainThrust = 100f;
     [SerializeField] float rotationThrust = 2f;
     // Start is called before the first frame update
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
 
     }
@@ -27,7 +29,12 @@ public class Movement : MonoBehaviour
         {
             // Debug.Log("Pressed Space - Thrusting");
             // Vector3.up = (0, 1, 0)
+
             rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+            if (!audio.isPlaying)
+            {
+                audio.Play();
+            }
         }
     }
     void ProcessRotation()
