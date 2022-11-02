@@ -15,15 +15,32 @@ public class CollisionHandler : MonoBehaviour
 
     //충돌 여부(중복 충돌 방지를 위함)
     bool isTransitioning = false;
+    bool collisionDisabled = false;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
+    void Update()
+    {
+        RespondToDebugKeys();
+    }
+
+    void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+        else if(Input.GetKeyDown(KeyCode.C)){
+            collisionDisabled = !collisionDisabled;
+        }
+    }
+
     void OnCollisionEnter(Collision other)
     {
-        if (isTransitioning) { return; }
+        if ( isTransitioning||collisionDisabled) { return; }
         switch (other.gameObject.tag)
         {
             case "Friendly":
@@ -43,7 +60,7 @@ public class CollisionHandler : MonoBehaviour
     {
         //충돌 여부를 True 설정
         isTransitioning = true;
-        
+
         //기존에 재생중이던 소리 멈춤
         audioSource.Stop();
         //실패 효과음 재생
@@ -61,7 +78,7 @@ public class CollisionHandler : MonoBehaviour
     {
         //충돌 여부를 True 설정
         isTransitioning = true;
-        
+
         //기존에 재생중이던 소리 멈춤
         audioSource.Stop();
         //성공 효과음 재생
@@ -74,7 +91,7 @@ public class CollisionHandler : MonoBehaviour
         Invoke("LoadNextLevel", levelLoadDelay);
     }
 
- 
+
     //현재 씬 재시작
     void ReloadLevel()
     {
