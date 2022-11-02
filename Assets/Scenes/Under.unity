@@ -491,14 +491,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 442326300430668565, guid: 4264719a39b705d459d63fdc1f0d12ff, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7a72da066f5b73944878c9d5e3e51ea2, type: 2}
-    - target: {fileID: 2187533396785725269, guid: 4264719a39b705d459d63fdc1f0d12ff, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7a72da066f5b73944878c9d5e3e51ea2, type: 2}
     - target: {fileID: 4679120135997808018, guid: 4264719a39b705d459d63fdc1f0d12ff, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -543,18 +535,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4745356953900581817, guid: 4264719a39b705d459d63fdc1f0d12ff, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 1fe8d606ac32a7044a7d656e485dda40, type: 2}
-    - target: {fileID: 5882365584086321182, guid: 4264719a39b705d459d63fdc1f0d12ff, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7a72da066f5b73944878c9d5e3e51ea2, type: 2}
-    - target: {fileID: 5916854982454475041, guid: 4264719a39b705d459d63fdc1f0d12ff, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7a72da066f5b73944878c9d5e3e51ea2, type: 2}
     - target: {fileID: 7457775048099832199, guid: 4264719a39b705d459d63fdc1f0d12ff, type: 3}
       propertyPath: m_Name
       value: Rocket

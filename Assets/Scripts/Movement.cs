@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    
+
     [SerializeField] float mainThrust = 100f;
     [SerializeField] float rotationThrust = 2f;
     [SerializeField] AudioClip mainEngine;
+    [SerializeField] ParticleSystem mainEngineParticles;
+    [SerializeField] ParticleSystem leftThrusterParticles;
+    [SerializeField] ParticleSystem rightThrusterParticles;
 
     AudioSource audioSource;
     Rigidbody rb;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,32 +35,77 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            // Debug.Log("Pressed Space - Thrusting");
             // Vector3.up = (0, 1, 0)
+            StartThrusting();
+        }
 
-            rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
-            if (!audioSource.isPlaying)
-            {
-                //mainEngine 재생
-                audioSource.PlayOneShot(mainEngine);
-            }
+        else
+        {
+            StopThrusting();
         }
     }
+
     void ProcessRotation()
     {
         if (Input.GetKey(KeyCode.A))
         {
-            // Debug.Log("Rotating Left");
-
-            // Vector3.forward = (0, 0, 1)
-            ApplyRotation(rotationThrust);
+            RotateLeft();
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            // Debug.Log("Rotating Right");
-
-            ApplyRotation(-rotationThrust);
+            RotateRight();
         }
+        else
+        {
+            StopRotating();
+        }
+    }
+
+    void StartThrusting()
+    {
+        rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+        if (!audioSource.isPlaying)
+        {
+            //mainEngine 재생
+            audioSource.PlayOneShot(mainEngine);
+        }
+        if (!mainEngineParticles.isPlaying)
+        {
+            mainEngineParticles.Play();
+        }
+    }
+
+    private void RotateRight()
+    {
+        // 오른쪽 엔진 파티클 출력
+        if (!rightThrusterParticles.isPlaying)
+        {
+            rightThrusterParticles.Play();
+        }
+
+        ApplyRotation(-rotationThrust);
+    }
+
+    private void RotateLeft()
+    {
+        if (!leftThrusterParticles.isPlaying)
+        {
+            leftThrusterParticles.Play();
+        }
+        // Vector3.forward = (0, 0, 1)
+        ApplyRotation(rotationThrust);
+    }
+
+    void StopThrusting()
+    {
+        audioSource.Stop();
+        mainEngineParticles.Stop();
+    }
+
+    private void StopRotating()
+    {
+        rightThrusterParticles.Stop();
+        leftThrusterParticles.Stop();
     }
 
     private void ApplyRotation(float rotationThisFrame)

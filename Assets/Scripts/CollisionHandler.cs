@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class CollisionHandler : MonoBehaviour
 {
-    [SerializeField] float levelLoadDelay = 2f;
+    [SerializeField] float levelLoadDelay = 3f;
     [SerializeField] AudioClip success;
     [SerializeField] AudioClip crash;
 
+    [SerializeField] ParticleSystem SuccessParticles;
+    [SerializeField] ParticleSystem CrashParticles;
     AudioSource audioSource;
 
     //충돌 여부(중복 충돌 방지를 위함)
@@ -41,10 +43,13 @@ public class CollisionHandler : MonoBehaviour
     {
         //충돌 여부를 True 설정
         isTransitioning = true;
+        
         //기존에 재생중이던 소리 멈춤
         audioSource.Stop();
         //실패 효과음 재생
         audioSource.PlayOneShot(crash);
+        //실패 파티클 재생
+        CrashParticles.Play();
         // Movement 스크립트 비활성화(로켓 제어권 회수)
         GetComponent<Movement>().enabled = false;
         // 1초 지연 후 ReloadLevel 호출
@@ -56,16 +61,20 @@ public class CollisionHandler : MonoBehaviour
     {
         //충돌 여부를 True 설정
         isTransitioning = true;
+        
         //기존에 재생중이던 소리 멈춤
         audioSource.Stop();
         //성공 효과음 재생
         audioSource.PlayOneShot(success);
+        //충돌 파티클 재생
+        SuccessParticles.Play();
         // Movement 스크립트 비활성화(로켓 제어권 회수)
         GetComponent<Movement>().enabled = false;
         // 1초 지연 후 LoadNextLevel 호출
         Invoke("LoadNextLevel", levelLoadDelay);
     }
 
+ 
     //현재 씬 재시작
     void ReloadLevel()
     {
@@ -87,4 +96,3 @@ public class CollisionHandler : MonoBehaviour
         SceneManager.LoadScene(nextSceneIndex);
     }
 }
-
